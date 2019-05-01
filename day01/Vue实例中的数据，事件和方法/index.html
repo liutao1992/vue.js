@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 方法一：插值表达式 -->
+        <!-- h1>{{msg}}</h1 -->
+
+        <!-- 方法二：使用v-text指令: 通过number变量进行赋值 -->
+        <!-- h1 v-text="number"></h1 -->
+        <!-- 方法三：使用v-html指令：-->
+        <!-- h1 v-html="number"></h1 -->
+
+        <!--监听事件-->
+        <!-- 当点击id为app1的div时，则会出发点击事件，自动调用handleClick方法 -->
+    </div>
+    <div id='app1'>
+        <div v-on:click="handleClick">{{content}}</div>
+        <!-- 也可以这样写，使用@进行事件绑定 -->
+        <div @click="handleClick">{{content}}</div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                msg: 'world',
+                number: 123
+            }
+        })
+
+        new Vue({
+            el: '#app1',
+            data: {
+                content: 'hello',
+            },
+            methods: {
+                handleClick: function () {
+                    // alert(123)
+                    // 如果想更该content的内容为：world，则可以使用以下方法：
+                    this.content = 'world'
+                }
+            }
+        })
+
+
+
+    </script>
+</body>
+
+</html>

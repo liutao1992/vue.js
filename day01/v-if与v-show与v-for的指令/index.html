@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-if, v-show, v-for 指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id='root'>
+        <!--当 v-show的值为true时，显示hello world,反之则不显示(当show的属性为fasle时，设置div的属性display为none;性能更好) -->
+        <!-- div v-show="show">hello world</div --> 
+        <!--当 v-if的值为true时，显示hello world,反之则不显示(当show的属性为fasle时，删除div元素;为true时新增div元素) -->
+        <div v-if="show">hello world</div>
+        <!--在button按钮中添加点击事件-->
+        <button @click='handleClick'>toggle</button>
+    </div>
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                show: true 
+            },
+            methods:{
+                handleClick: function() {
+                    this.show = !this.show;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
