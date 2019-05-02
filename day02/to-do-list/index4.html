@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <title>实现今日清单的删除功能</title>
+    <title>今日清单(通过组件化进行重构)</title>
 </head>
 
 <body>
@@ -16,35 +16,28 @@
             <button @click="handleSumbit">提交</button>
         </div>
         <ul>
-            <!-- 我们在这里把index索引传给子组件 -->
-            <!-- 并且我们在这里写了一个监听事件（handleDelete）,监听子组件 -->
-            <todo-item v-for="(item, index) of list"
-             :key="index"
-             :content="item"
-             ：index="index"
-             @delete="handleDelete">
+            <todo-item v-for="(item, index) of list" :key="index" :content="item" :index="index" @delete="handleDelete">
             </todo-item>
         </ul>
     </div>
     <script>
         // 该组件为全局组件，定义好之后，在模板里都能使用
+        // 每个Vue组件,都是Vue实例，都可以添加事件，也都可以使用methods方法
         Vue.component('todo-item', {
             // 在未使用props时，我们会发现我们在添加item时，列表只会显示默认的item，并非是我们输入的值。
-            // 此时我们需要使用props: 用来接受外部一个叫content的元素属性
+            // 此时我们需要使用props: 用来接受外部一个叫content的元素
             props: ['content', 'index'],
             // todo 注意这里的写法！
             // template: '<li>content</li>'
-            // 当点击子组件时触发handleClick事件
             template: '<li @click="handleClick">{{content}}</li>',
             methods: {
-                handleClick: function() {
-                    //当handleClick事件触发时，向父组件
-                    // 发送delete事件
+                handleClick: function () {
+                    //当handleClick事件触发时，触发delete事件(向父组件发送delete事件)
                     this.$emit('delete', this.index)
                 }
             }
         })
-        
+
         // 改组件为局部组件
         // var TodoItem = {
         //     template: '<li>item</li>'
@@ -60,12 +53,12 @@
                 input_value: 'hello',
                 list: []
             },
-            methods:{
-                handleSumbit: function() {
+            methods: {
+                handleSumbit: function () {
                     this.list.push(this.input_value)
                     this.input_value = ''
                 },
-                handleDelete: function(index){
+                handleDelete: function (index) {
                     this.list.splice(index, 1)
                 }
             }
