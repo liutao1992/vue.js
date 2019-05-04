@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>ToDoList(实现删除功能)</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 在input输入框中添加v-model指令，进行数据绑定。当用户点击button按钮时，获取input输入框的值 -->
+        <input type='text' v-model='inputValue'/>
+        <!-- 在button按钮中添加点击事件，并在app实例中添加methods方法,当点击button按钮时，会触发khandleBtnClick事件 -->
+        <button v-on:click="handleBtnClick">提交</button>
+        <ul>
+            <!-- v-bind:表示向子组件（todo-item）传递绑定值（content） -->
+            <!-- @delete监听子组件事件 -->
+            <!-- <todo-item v-bind:content="item"
+                       v-bind:index="index" 
+                       v-for="(item, index) in list"
+                       @delete="handleItemDelete">
+            </todo-item> -->
+            <!-- v-bind 可以简写为":"。 -->
+            <todo-item :content="item"
+                       :index="index" 
+                       v-for="(item, index) in list"
+                       @delete="handleItemDelete">
+ </todo-item>
+        </ul>
+    </div>
+
+    <script>
+        var TodoItem = {
+            props: ['content', 'index'],
+            // 当点击子组件时触发handleItemClick事件(v-on 可以简写为@click)
+            template: '<li @click="handleItemClick">{{content}}</li>',
+            // 此时我们需要对该组件定义handleItemClick方法
+            methods: {
+                handleItemClick: function(){
+                    // 子组件向父组件传递信号，触发delete事件
+                    this.$emit("delete", this.index)
+                }
+            }
+        }    
+
+        var app = new Vue({
+            // el：指定元素范围
+            el: '#app',
+
+            // 在使用局部组件时需要注册
+            components: {
+                TodoItem: TodoItem
+            },
+            data: {
+                inputValue: '',
+                list: []
+            },
+            methods: {
+                handleBtnClick: function(){
+                    // 当该事件触发时，我们会获取inputValue的值
+                    this.list.push(this.inputValue)
+                    // 然后清空inputValue的值
+                    this.inputValue = ''
+                },
+
+                handleItemDelete: function(index) {
+                    this.list.splice(index, 1);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
