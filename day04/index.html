@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 添加 Marked 库: -->
+    <script src="https://unpkg.com/marked"></script>
+    <title>Notebook</title>
+</head>
+
+<body>
+    <!-- 笔记本应用 -->
+    <div id="notebook">
+        <!-- 主面板 -->
+        <section class="main">
+            <textarea v-model="content"></textarea>
+        </section>
+    </div>
+
+    <!-- 一些javascript代码 -->
+    <script src="script.js"></script>
+</body>
+
+</html>
