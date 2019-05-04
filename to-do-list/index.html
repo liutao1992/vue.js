@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>ToDoList</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 在input输入框中添加v-model指令，进行数据绑定。当用户点击button按钮时，获取input输入框的值 -->
+        <input type='text' v-model='inputValue'/>
+        <!-- 在button按钮中添加点击事件，并在app实例中添加methods方法,当点击button按钮时，会触发khandleBtnClick事件 -->
+        <button v-on:click="handleBtnClick">提交</button>
+        <ul>
+            <!-- 遍历列表（app实例中data数据中的list）元素中的数据 -->
+            <li v-for="item in list">{{ item }}</li>
+        </ul>
+    </div>
+
+    <script>
+        var app = new Vue({
+            // el：指定元素范围
+            el: '#app',
+            data: {
+                inputValue: '',
+                list: []
+            },
+            methods: {
+                handleBtnClick: function(){
+                    // 当该事件触发时，我们会获取inputValue的值
+                    this.list.push(this.inputValue)
+                    // 然后清空inputValue的值
+                    this.inputValue = ''
+                }
+            }
+        })
+    </script>
+</body>
+</html>
