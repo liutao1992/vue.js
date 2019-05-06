@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>计算属性，方法，侦听器</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 如果现在你要计算用户完整的姓名，你可以选择这么几种方式 -->
+        <!-- 方法一 在模板中通过表达式来计算-->
+        <!-- {{ firstName + " " + lastName }} -->
+
+        <!-- 方法二 通过计算属性的方式来实现-->
+        <!-- {{ fullName }}
+        {{ age }} -->
+
+        <!-- 方法三 通过methods方法实现 -->
+        <!-- {{ fullName() }} -->
+
+        <!-- 方法四 通过监听器的方式实现 -->
+        {{ fullName }}
+        {{ age }}
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                firstName: 'Dell',
+                lastName: 'Lee',
+                // 在使用监听器的过程中，我们新增fullName字段
+                fullName: 'Dell Lee',
+                age: 27
+            },
+
+            // 监听器的实现，其性能和"计算属性"比较相似，都具缓存功能。但其功能实现远比"计算属性"复杂
+            watch: {
+                firstName: function() {
+                    console.log('计算了一次');
+                    this.fullName =  this.firstName + " " + this.lastName
+                },
+                lastName: function() {
+                    console.log('计算了一次');
+                    this.fullName =  this.firstName + " " + this.lastName
+                }
+            }
+
+            // 计算属性(该属性会缓存fullName的值)
+            // 如何体现呢？我们在这里打印一句话
+            // 然后我们进入到控制台，通过重新渲染age（vm.age=28）这个字段，你会发现vue并没有调用fullName属性
+            // 页面依旧显示之前的内容，在这过程中，fullName使用了缓存中的值
+            // 但当fullName中依赖字段（firstName, lastName）的值有修改的时候，fullName就会重新计算其属性
+            // computed: {
+            //     fullName: function(){
+            //         console.log('计算了一次');
+            //         return this.firstName + " " + this.lastName
+            //     }
+            // }
+
+            // 但这样的一种实现方式，其性能远不如"computed".因为每次重新渲染值，都会重新调用methods方法   
+            // methods: {
+            //     fullName: function(){
+            //         return this.firstName + " " + this.lastName
+            //     }
+            // }
+        })
+    </script>
+</body>
+</html>
