@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>计算属性的getter和setter</title>
+</head>
+<body>
+    <div id="app">
+        {{ fullName }}
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                firstName: "Dell",
+                lastName: "Lee"
+            },
+            computed: {
+                fullName: {
+                    // 当修改fullName属性中的某个字段（firstName,lastName）时，computed会自动调用该方法
+                    get: function() {
+                        console.log('call the get methods')
+                        return this.firstName + " " + this.lastName
+                    },
+
+                    set: function( value ){
+                        // 当修改fullName属性时，会调用该方法
+                        console.log('call the set methods')
+                        var arr = value.split(" ");
+                        // 当我们拿到这个值，然后间接给
+                        // firstName,lastName修改属性时，
+                        // 则会自动调用 "get方法"
+                        this.firstName = arr[0];
+                        this.lastName = arr[1];
+                        console.log(value)
+                    }
+                }
+            }
+        })  
+    </script>
+</body>
+</html>
+
