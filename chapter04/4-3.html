@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>通过引用实现计数器的求和功能</title>
+</head>
+<body>
+    <div id="root">
+        <counter ref="one" @change="handleChange"></counter>
+        <counter ref="two" @change="handleChange"></counter>
+        <div>{{ total }}</div>
+    </div>
+
+    <script>
+        Vue.component('counter', {
+            template: '<div @click="handleClick">{{ number }}</div>',
+            data: function() {
+                return {
+                    number: 0
+                }
+            },
+            methods: {
+                handleClick: function() {
+                    this.number ++,
+                    // 监听change信号，并触发父组件的handleChange事件
+                    this.$emit('change')
+                }
+            }
+        })
+
+        vm = new Vue({
+            el: '#root',
+            data: {
+                total: 0
+            },
+            methods: {
+                handleChange: function() {
+                    value1 = this.$refs.one.number,
+                    value2 = this.$refs.two.number,
+                    this.total = value1 + value2
+                }
+            }
+        })
+    </script>
+</body>
+</html>

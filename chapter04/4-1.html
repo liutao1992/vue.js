@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>组件使用中的细节点</title>
+</head>
+<body>
+    <!-- 当我们渲染html时，虽然内容已经渲染出来了，
+         但你在观察html结构时，你会发现这么一个现象： 
+         row标签并没有渲染在tbody当中，如何解决呢？
+         我们把row标签换位tr标签，然后使用is属性。-->
+    <!-- <div id="root">
+        <table>
+            <tbody>
+                <row></row>
+                <row></row>
+                <row></row>
+            </tbody>    
+        </table>
+    </div> -->
+
+    <div id="root">
+        <table>
+            <tbody>
+                <tr is='row'></tr>
+                <tr is='row'></tr>
+                <tr is='row'></tr>
+            </tbody>    
+        </table>
+    </div>
+
+    <script>
+       Vue.component('row', {
+           template: '<tr><td>this is a row</td></tr>'
+       }) 
+       var vm = new Vue({
+           'el': '#root',
+       })
+    </script>
+</body>
+</html>

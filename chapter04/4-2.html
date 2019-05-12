@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>通过引用操作DOM</title>
+</head>
+<body>
+    
+    <!-- 当点击hello world时触发点击事件 -->
+    <div id="root">
+      <div ref='hello' 
+           @click="handleClick"
+      >
+        hello world
+    </div>
+
+    <script>
+       var vm = new Vue({
+           'el': '#root',
+           methods: {
+               handleClick: function() {
+                   // 通过引用拿到dom元素
+                   alert(this.$refs.hello.innerHTML)
+               }
+           }
+       })
+    </script>
+</body>
+</html>
