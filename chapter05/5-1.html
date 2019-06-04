@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue动画-Vue中CSS动画原理</title>
+    <script src="./vue.js"></script>
+    <!-- 对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 <transition>，
+         则 v- 是这些类名的默认前缀。如果你使用了 <transition name="my-transition">，
+         那么 v-enter 会替换为 my-transition-enter。 -->
+    <style>
+        .v-enter-active,
+        .v-leave-active {
+            transition: opacity 3s;
+        }
+
+        .v-enter,
+        .v-leave-to
+        /* .fade-leave-active below version 2.1.8 */
+            {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <!-- Vue 提供了 transition 的封装组件，在下列情形中，可以给任何元素和组件添加进入/离开过渡 -->
+        <transition>
+            <div v-if="show">hello world</div>
+        </transition>
+        <button @click="handleClick">切换</button>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                show: true
+            },
+            methods: {
+                handleClick: function () {
+                    this.show = !this.show
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

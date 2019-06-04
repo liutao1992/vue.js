@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>组件参数校验与非Props特性</title>
+</head>
+<body>
+    <div id="root">
+        <child content="hello world"></child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            // 对父组件传递的参数进行校验
+            props: {
+                content: {
+                    // 该组件接受参数的要求
+                    // 参数类型：字符串
+                    type: String,
+                    // 是否必传
+                    required: true,
+                    // 默认值
+                    default: 'default value',
+                    // 参数校验
+                    validator: function(value){
+                        // 如果参数长度小于5则会报错
+                        return (value.length > 5)
+                    }
+
+                }
+            },
+            template: '<div>{{ content }}</div>'
+        })
+
+        new Vue({
+            'el': '#root',
+        })
+    </script>
+</body>
+</html>
