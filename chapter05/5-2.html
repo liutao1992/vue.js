@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,32 +9,18 @@
     <script src="./vue.js"></script>
     <link rel="stylesheet" type="text/css" href="./animate.css">
 </head>
+
 <body>
     <div id="root">
         <button @click="show=!show">toggle</button>
-        <transition 
-            name="custom-classes-transition" 
-            enter-activate-class="animated tada"
-            leave-activate-class="animated bounceOutRight"
-        >
+        <transition name="custom-classes-transition" enter-activate-class="animated tada"
+            leave-activate-class="animated bounceOutRight">
             <p v-if="show">Hello World</p>
         </transition>
-        
     </div>
-    <div id="example-3">
-        <button @click="show = !show">
-          Toggle render
-        </button>
-        <transition
-          name="custom-classes-transition"
-          enter-active-class="animated tada"
-          leave-active-class="animated bounceOutRight"
-        >
-          <p v-if="show">hello</p>
-        </transition>
-      </div>
+
     <script>
-       var vm = new Vue({
+        var vm = new Vue({
             el: '#root',
             data: {
                 show: true
@@ -46,4 +33,5 @@
         })
     </script>
 </body>
+
 </html>
